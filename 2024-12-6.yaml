@@ -1,0 +1,358 @@
+# > 𝐥𝐚𝐨𝐬𝐡𝐮@𝐄𝐠𝐞𝐫𝐧 自用配置
+# > 配置下载𝐔𝐑𝐋： https://raw.githubusercontent.com/jnlaoshu/MySelf/master/Egern/Profile.yaml
+# > 𝐔𝐩𝐝𝐚𝐭𝐞: 2024.12.05 09:10
+
+allow_external_connections: true
+vif_only: true
+hijack_dns:
+- '*:53'
+geoip_db_url: https://raw.githubusercontent.com/Masaiki/GeoIP2-CN/release/Country.mmdb
+asn_db_url: https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb
+proxy_latency_test_url: http://cp.cloudflare.com/generate_204
+direct_latency_test_url: http://www.apple.com/library/test/success.html
+vif_excluded_routes:
+- boc.com
+- cmbchina.com
+include_all_networks: false
+include_cellular_services: false
+dns:
+  bootstrap:
+  - 233.5.5.5 
+  - 119.29.29.29
+  upstreams:
+    Secure DNS:
+    - https://dns.alidns.com/dns-query
+    Open DNS:
+    - https://208.67.222.222/dns-query
+    Google DNS:
+    - tls://8.8.8.8
+  forward:
+  - wildcard:
+      match: apple
+      value: system
+  - wildcard:
+      match: youtube
+      value: tls://8.8.8.8      
+  - wildcard:
+      match: google
+      value: tls://8.8.8.8
+  - wildcard:
+      match: chipsfuck
+      value: Open DNS
+  - wildcard:
+      match: pqjc.buzz
+      value: Google DNS
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
+      value: Secure DNS
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list
+      value: Secure DNS
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list
+      value: Google DNS
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list
+      value: Google DNS
+  - regex:
+      match: ^ad\..*|^ads\..* 
+      value: quic://dns.adguard-dns.com     
+  - wildcard:
+      match: '*'
+      value: Secure DNS
+  hosts:
+    doh.pub: 1.12.12.12
+    dns.alidns.com: 223.5.5.5
+    dot.pub: 1.12.12.12
+    dns.google.com: 8.8.8.8
+    localhost: 127.0.0.1    
+  public_ip_lookup_url: https://ifconfig.me/ip
+policy_groups:
+- select:
+    name: Netflix
+    policies:
+    - 台湾节点
+    - 新加坡节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
+- select:
+    name: 大陆服务
+    policies:
+    - DIRECT
+    - 中国节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
+- select:
+- select:
+    name: Apple
+    policies:
+    - DIRECT
+    - 中国节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+- select:
+    name: AIGC
+    policies:
+    - 美国优先
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ChatGPT.png    
+- select:
+    name: Google
+    policies:
+    - 日本节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google_Search.png
+- select:
+    name: Microsoft
+    policies:
+    - DIRECT
+    - 中国服务
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
+- select:
+    name: PayPal
+    policies:
+    - 美国节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PayPal.png
+- select:
+    name: Spotify
+    policies:
+    - 日本节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png    
+- select:
+    name: Telegram
+    policies:
+    - 日本节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png
+- select:
+    name: TikTok
+    policies:
+    - 日本节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png    
+- select:
+    name: Twitter
+    policies:
+    - 台湾节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitter.png
+- select:
+    name: WeChat
+    policies:
+    - DIRECT
+    - 中国服务
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/WeChat.png
+- select:
+    name: YouTube
+    policies:
+    - 日本节点
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
+- auto_test:
+    name: 新加坡节点
+    policies:
+    - 所有节点
+    flatten: true
+    filter: 🇭🇰|港|HK|Hong
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+- auto_test:
+    name: 美国节点
+    policies:
+    - 所有节点
+    flatten: true
+    filter: 🇺🇸|美|States|US
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+- auto_test:
+    name: 台湾节点
+    policies:
+    - 所有节点
+    flatten: true
+    filter: 🇹🇼|台|TW|Tai
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+- auto_test:
+    name: 日本节点
+    policies:
+    - 所有节点
+    flatten: true
+    filter: 🇯🇵|日|日本|JP
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+- auto_test:
+    name: 新加坡节点
+    policies:
+    - 所有节点
+    flatten: true
+    filter: 🇸🇬|新|新加坡|SG
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+- auto_test:
+    name: 韩国节点
+    policies:
+    - 所有节点
+    flatten: true
+    filter: 🇰🇷|韩|KR|KOR|Korea
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Korea.png    
+- select:
+    name: 中国服务
+    policies:
+    - 所有节点
+    flatten: true
+    filter: ^((?!🇭🇰|港|HK|Hong|🇹🇼|台|TW|Tai|🇯🇵|日|JP|Japan|🇸🇬|坡|狮城|SG|Singapore|🇰🇷|韩|KR|KOR|Korea|🇺🇸|美|US|States|American|Music).)*$
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/World_Map.png
+- external:
+    name: 所有节点
+    type: select
+    urls:
+    - https://sub.store/download/collection/AllServer?target=Egern
+    icon: 🌹      
+rules:
+- domain_regex:
+    match: ^ad\..*|^ads\..*
+    policy: REJECT
+- domain_suffix:
+    match: dns.google.com
+    policy: 日本节点
+- domain_suffix:
+    match: 8.8.8.8
+    policy: 日本节点    
+- rule_set:
+    match: https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml
+    policy: REJECT
+- rule_set:
+    match: ttps://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Netflix/Netflix.list
+    policy: Netflix
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list
+    policy: Apple
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list
+    policy: Apple
+- rule_set:
+    match: https://raw.githubusercontent.com/jnlaoshu/MySelf/refs/heads/main/Surge/Rules/AI.list
+    policy: AIGC    
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Google/Google.list
+    policy: Google
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Microsoft/Microsoft.list
+    policy: Microsoft
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PayPal/PayPal.list
+    policy: PayPal    
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list
+    policy: Spotify
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list
+    policy: Telegram
+- rule_set:
+    match: https://raw.githubusercontent.com/jnlaoshu/MySelf/refs/heads/main/Egern/Rule/TikTok.yaml
+    policy: TikTok    
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list
+    policy: Twitter
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list
+    policy: WeChat    
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list
+    policy: YouTube
+- domain:
+    match: ifconfig.me
+    policy: DIRECT
+- domain_suffix:
+    match: cn
+    policy: 大陆节点
+- geoip:
+    match: CN
+    policy: 大陆节点
+- ip_cidr:
+    match: 192.168.0.0/16
+    policy: DIRECT
+- ip_cidr:
+    match: 10.0.0.0/8
+    policy: DIRECT
+- ip_cidr:
+    match: 127.0.0.0/8
+    policy: DIRECT
+- ip_cidr:
+    match: 172.16.0.0/12
+    policy: DIRECT
+- ip_cidr:
+    match: 192.128.0.0/16
+    policy: DIRECT
+- ip_cidr:
+    match: 224.0.0.0/24
+    policy: DIRECT
+- default:
+    policy: 所有节点
+mitm:
+  enabled: true
+  ca_p12: egern.p12
+  ca_passphrase: egern
+modules:
+- name: BoxJs
+  url: https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.surge.sgmodule
+  enabled: true
+- name: ScriptHub
+  url: https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/modules/script-hub.surge.sgmodule
+  enabled: true
+- name: Sub-Store
+  url: https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Egern.yaml  
+  enabled: true
+- name: 'Spotify'
+  url: https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.module
+  enabled: true
+- name: 'WeatherKit'
+  url: https://github.com/NSRingo/WeatherKit/releases/latest/download/WeatherKit.yaml
+  enabled: true  
+- name: ''
+  url: https://raw.githubusercontent.com/Maasea/sgmodule/master/YouTube.Enhance.sgmodule
+  enabled: true
+- name: ''
+  url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/12306%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/%E5%8F%AF%E8%8E%89%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%99%A8.beta.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E5%BE%AE%E4%BF%A1%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5%E8%A7%A3%E9%94%81.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E6%BB%B4%E6%BB%B4%E5%87%BA%E8%A1%8C%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E7%BE%8E%E5%9B%BE%E7%A7%80%E7%A7%80%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E7%BE%8E%E9%A2%9C%E7%9B%B8%E6%9C%BA%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E8%8F%9C%E9%B8%9F%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E9%85%B7%E6%88%91%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E9%85%B7%E7%8B%97%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E9%97%B2%E9%B1%BC%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E9%9B%AA%E7%90%83%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/QQ%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Spotify%E6%AD%8C%E8%AF%8D%E7%BF%BB%E8%AF%91.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E4%BA%91%E9%97%AA%E4%BB%98%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E4%BA%AC%E4%B8%9C%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E4%BC%98%E9%85%B7%E8%A7%86%E9%A2%91%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+  enabled: true
