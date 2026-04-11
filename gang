@@ -1,3 +1,8 @@
+#去广告youtube,翻译、Netfli翻译，迪士尼翻译，
+
+
+
+allow_external_connections: true
 ipv6: true
 vif_only: true
 block_quic: true
