@@ -1,0 +1,18 @@
+name: 蜂鸟/饿了么零售单过滤器
+desc: 自动识别并隐藏 business_type 为 xls 的零售订单
+category: 配送助手
+
+# 核心解密域名 (必须包含此项，否则脚本无法读取加密内容)
+mitm:
+  - "*.ele.me"
+  - "*.fengniao.com"
+
+# 脚本定义
+scripting:
+  - name: RejectXlsOrder
+    type: response
+    # 匹配获取订单列表和详情的 API
+    pattern: ^https:\/\/.*\.ele\.me\/.*(delivery_query|order_detail|grab_card)
+    script_path: https://你的脚本托管地址/reject_xls.js
+    requires_body: true
+    timeout: 10
