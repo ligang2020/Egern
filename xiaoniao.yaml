@@ -1,0 +1,30 @@
+name: 小鸟去检测增强版
+description: 移除速度检测、红绿灯、头盔检测及零售单过滤。采用 Map Local 模拟成功响应，提升 App 稳定性。
+author: RuCu6 & AI Optimized
+
+# 规则部分
+rules:
+  - domain, aiot.ele.me, reject
+
+# 本地数据映射
+map_locals:
+  # 屏蔽高德地图相关检测
+  - match: ^https?:\/\/.*amap\.com\/ws\/mps\/rtt
+    status_code: 200
+    body: "{}"
+  
+  # 屏蔽饿了么零售/超市单相关
+  - match: ^https?:\/\/.*ele\.me\/.*(retail|supermarket)
+    status_code: 200
+    body: "{}"
+  
+  # 屏蔽头盔、速度检测等相关接口
+  - match: ^https?:\/\/.*ele\.me\/.*(helmet|detect|speed)
+    status_code: 200
+    body: "{}"
+
+# 中间人攻击解密
+mitm:
+  hostnames:
+    - "*.amap.com"
+    - "*.ele.me"
