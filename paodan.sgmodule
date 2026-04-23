@@ -1,0 +1,29 @@
+name: 小鸟，去除速度检测，红绿灯检测，头盔，零售单过滤
+description: 小鸟去检测和零售单
+open_url: https://apps.apple.com/app/id387682726
+author: RuCu6[https://github.com/RuCu6]
+homepage: https://hub.kelee.one
+icon: https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Taobao.png
+dns: {}
+rules:
+- domain:
+    match: retail.ele.me
+    policy: REJECT
+- domain:
+    match: aiot.ele.me
+    policy: REJECT
+map_locals:
+- match: ^https?:\/\/.*amap\.com\/ws\/mps\/rtt
+  status_code: reject-200
+  body: '{}'
+- match: ^https?:\/\/.*ele\.me\/.*(retail|supermarket|medicine)
+  status_code: reject-200
+  body: '{}'
+- match: ^https?:\/\/.*ele\.me\/.*(helmet|detect|violation|upload)
+  status_code: reject-200
+mitm:
+  hostnames:
+    includes:
+    - *.amap.com
+    - *.ele.me
+    - knight.ele.me
