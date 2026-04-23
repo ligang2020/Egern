@@ -1,19 +1,21 @@
-name: 小鸟，去除速度检测，红绿灯检测，头盔，零售单过滤
-description: 小鸟去检测和零售单
-rules:
-  - domain: aiot.ele.me, REJECT # 这种不影响流程的可以直接拒绝
+#!name=小鸟去检测增强版
+#!desc=移除速度检测、红绿灯、头盔检测及零售单过滤。采用 Map Local 模拟成功响应，防止 App 报错。
+#!system=ios
 
-map_locals:
-  - match: ^https?://.*amap\.com/ws/mps/rtt
-    status_code: 200
-    body: '{}'
-  - match: ^https?://.*ele\.me/.*(retail|supermarket)
-    status_code: 200
-    body: '{}'
-  - match: ^https?://.*ele\.me/.*(helmet|detect|speed)
-    status_code: 200
-    body: '{}'
-mitm:
-  hostnames:
-    - "*.amap.com"
-    - "*.ele.me"
+[Rule]
+# 屏蔽不影响主业务的域名
+DOMAIN,aiot.ele.me,REJECT
+
+[Map Local]
+# 1. 屏蔽高德地图相关检测
+^https?:\/\/.*amap\.com\/ws\/mps\/rtt data-type=text status-code=200 body="{}"
+
+# 2. 屏蔽饿了么零售/超市单相关
+^https?:\/\/.*ele\.me\/.*(retail|supermarket) data-type=text status-code=200 body="{}"
+
+# 3. 屏蔽头盔、速度检测等相关接口
+^https?:\/\/.*ele\.me\/.*(helmet|detect|speed) data-type=text status-code=200 body="{}"
+
+[MITM]
+hostname = %APPEND% *.amap.com, *.ele.me
+
