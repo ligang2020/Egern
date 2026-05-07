@@ -1,4 +1,4 @@
-ipv6: true
+ipv6: false
 allow_external_connections: true
 vif_only: true
 block_quic: true
@@ -8,118 +8,122 @@ asn_db_url: https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmd
 proxy_latency_test_url: https://connectivitycheck.gstatic.com/generate_204
 direct_latency_test_url: https://www.qq.com
 udp_latency_test_url: google.com@8.8.8.8
-compat_route: false
+compat_route: true
 include_apns: false
 dns:
   bootstrap:
   - system
   upstreams:
-    DomesticDNS:
+    国外dns:
+    - https://1.1.1.1/dns-query
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+    国内dns:
     - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
-    ForeignDNS:
+    兜底dns:
+    - https://1.1.1.1/dns-query
     - https://dns.google/dns-query
     - https://cloudflare-dns.com/dns-query
   forward:
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/MeALiYeYe/ProxyConfigFiles/main/Surge/rule/Reject.list
-      value: REJECT
+      match: https://yfamilys.com/rule/DouYin.list
+      value: 国内dns
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list
-      value: REJECT
+      match: https://yfamilys.com/rule/TikTok.list
+      value: 国外dns
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/MeALiYeYe/ProxyConfigFiles/main/Surge/rule/Direct.list
-      value: DomesticDNS
+      match: https://raw.githubusercontent.com/IBL3ND/rule/refs/heads/main/Gemini.list
+      value: 国外dns
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list
-      value: DomesticDNS
+      match: https://whatshub.top/rule/Gemini.list
+      value: 国外dns
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China_Domain.list
-      value: DomesticDNS
+      match: https://whatshub.top/rule/OpenAI.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://www.naiixi.com/Extra_Crypto.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/rule/openai.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/AI.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Crypto/Crypto.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://whatshub.top/rule/Binance.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://yfamilys.com/rule/Telegram.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://yfamilys.com/rule/YouTube.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://yfamilys.com/rule/Instagram.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://yfamilys.com/rule/Twitter.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://yfamilys.com/rule/ProxyMedia.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://yfamilys.com/rule/Google.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://yfamilys.com/rule/Cloudflare.list
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://kelee.one/Tool/Loon/Lsr/AI.lsr
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/GMOogway/shadowrocket-rules/master/sr_proxy_list.module
+      value: 国外dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/direct.txt
+      value: 国内dns
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/GMOogway/shadowrocket-rules/master/sr_direct_list.module
+      value: 国内dns
       disabled: false
   - domain_wildcard:
       match: '*'
-      value: ForeignDNS
+      value: 兜底dns
       disabled: false
-  hosts:
-    ip6-localhost:
-    - ::1
-    ip6-loopback:
-    - ::1
-    ip6-localnet:
-    - fe00::0
-    ip6-mcastprefix:
-    - ff00::0
-    ip6-allnodes:
-    - ff02::1
-    ip6-allrouters:
-    - ff02::2
-    ip6-allhosts:
-    - ff02::3
-    dns.google:
-    - 8.8.4.4
-    - 8.8.8.8
-    - 2001:4860:4860::8844
-    - 2001:4860:4860::8888
-    dns64.dns.google:
-    - 2001:4860:4860::64
-    - 2001:4860:4860::6464
-    dns.cloudflare.com:
-    - 104.16.248.249
-    - 104.16.249.249
-    - 2606:4700::6810:f9f9
-    - 2606:4700::6810:f8f9
-    cloudflare-dns.com:
-    - 104.16.248.249
-    - 104.16.249.249
-    - 2606:4700::6810:f9f9
-    - 2606:4700::6810:f8f9
-    1dot1dot1dot1.cloudflare-dns.com:
-    - 1.1.1.1
-    - 1.0.0.1
-    - 2606:4700:4700::1001
-    - 2606:4700:4700::1111
-    one.one.one.one:
-    - 1.1.1.1
-    - 1.0.0.1
-    - 2606:4700:4700::1001
-    - 2606:4700:4700::1111
-    dns.alidns.com:
-    - 223.5.5.5
-    - 223.6.6.6
-    - 2400:3200:baba::1
-    - 2400:3200::1
-    doh.pub:
-    - 120.53.53.53
-    - 1.12.12.12
-    - '2402:4e00:1::'
-    - '2402:4e00::'
-    dot.pub:
-    - 120.53.53.53
-    - 1.12.12.12
-    - '2402:4e00:1::'
-    - '2402:4e00::'
-    raw.githubusercontent.com:
-    - 185.199.108.133
-    - 185.199.109.133
-    - 185.199.110.133
-    - 185.199.111.133
-    - 2606:50c0:8000::154
-    - 2606:50c0:8001::154
-    - 2606:50c0:8002::154
-    - 2606:50c0:8003::154
-    iosapps.itunes.apple.com:
-    - iosapps.itunes.apple.com.download.ks-cdn.com
   proxy_nameservers:
-  - 223.5.5.5
-  - 223.6.6.6
+  - https://doh.pub/dns-query
+  - https://223.5.5.5/dns-query
 policy_groups:
-- auto_test:
-    name: 优选节点
+- smart:
+    name: iBL3ND
     policies:
     - 新国节点
     - 日本节点
@@ -127,7 +131,6 @@ policy_groups:
     - 台湾节点
     - 美国节点
     flatten: false
-    tolerance: 20
     icon: https://iili.io/K0KrBdQ.png
     hidden: false
 - select:
@@ -150,70 +153,9 @@ policy_groups:
     update_interval: 60
     icon: https://github.com/Repcz/Repcz.github.io/raw/main/docs/egern/Photo/Egern.png
     hidden: false
-- auto_test:
-    name: 香港节点
-    policies:
-    - 手动选择
-    flatten: true
-    filter: ^(?!.*×).*(?:🇭🇰|Hong Kong|Hong|HK|HKG|香港).*$
-    block_quic: true
-    icon: https://iili.io/FaAI3Bt.png
-    hidden: true
-- auto_test:
-    name: 新国节点
-    policies:
-    - 手动选择
-    flatten: true
-    filter: 🇸🇬|新加坡|Singapore|SG
-    icon: https://iili.io/FaRfFXn.png
-    hidden: true
-- auto_test:
-    name: 台湾节点
-    policies:
-    - 手动选择
-    flatten: true
-    filter: 🇹🇼|台湾|Taiwan|TW|Tai
-    icon: https://iili.io/Kb9Iauj.png
-    hidden: true
-- auto_test:
-    name: 日本节点
-    policies:
-    - 手动选择
-    flatten: true
-    filter: \b(?!.*×)\b(🇯🇵|日本|Japan|JP)\b
-    icon: https://iili.io/Fa5AnTb.png
-    hidden: true
-- auto_test:
-    name: 韩国节点
-    policies:
-    - 手动选择
-    flatten: true
-    filter: 🇰🇷|韩国|Korea|KR
-    icon: https://iili.io/Fa5Mdn1.png
-    hidden: true
-- auto_test:
-    name: 美国节点
-    policies:
-    - 手动选择
-    flatten: true
-    filter: 🇺🇸|美国|United States|USA|US|States
-    icon: https://iili.io/FaAug7s.png
-    hidden: true
-- select:
-    name: TikTok
-    policies:
-    - 日本节点
-    - 台湾节点
-    - 新国节点
-    - 美国节点
-    - 韩国节点
-    flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/tiktok(1).png
-    hidden: false
 - select:
     name: 抖音IP修改
     policies:
-    - DIRECT
     - 日本节点
     - 台湾节点
     - 新国节点
@@ -222,89 +164,98 @@ policy_groups:
     flatten: false
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/tiktok.png
     hidden: false
-- select:
-    name: Spotify
+- fallback:
+    name: 香港节点
     policies:
-    - 日本节点
-    - 台湾节点
-    - 新国节点
-    - 美国节点
-    - 韩国节点
-    flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/spotify(green).png
+    - 手动选择
+    flatten: true
+    filter: ^(?!.*×).*(?:🇭🇰|Hong Kong|Hong|HK|HKG|香港).*$
+    block_quic: true
+    icon: https://iili.io/FaAI3Bt.png
+    hidden: false
+- auto_test:
+    name: 新国节点
+    policies:
+    - 手动选择
+    flatten: true
+    filter: 🇸🇬|新加坡|Singapore|SG
+    icon: https://iili.io/FaRfFXn.png
+    hidden: false
+- auto_test:
+    name: 台湾节点
+    policies:
+    - 手动选择
+    flatten: true
+    filter: 🇹🇼|台湾|Taiwan|TW|Tai
+    icon: https://iili.io/Kb9Iauj.png
+    hidden: false
+- auto_test:
+    name: 日本节点
+    policies:
+    - 手动选择
+    flatten: true
+    filter: \b(?!.*×)\b(🇯🇵|日本|Japan|JP)\b
+    icon: https://iili.io/Fa5AnTb.png
+    hidden: false
+- auto_test:
+    name: 韩国节点
+    policies:
+    - 手动选择
+    flatten: true
+    filter: 🇰🇷|韩国|Korea|KR
+    icon: https://iili.io/Fa5Mdn1.png
+    hidden: false
+- auto_test:
+    name: 美国节点
+    policies:
+    - 手动选择
+    flatten: true
+    filter: 🇺🇸|美国|United States|USA|US|States
+    icon: https://iili.io/FaAug7s.png
     hidden: false
 - select:
-    name: Netflix
+    name: TK
     policies:
-    - 流媒体节点
+    - iBL3ND
     flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/netflix(red).png
-    hidden: false
+    hidden: true
 - select:
     name: X
     policies:
-    - 优选节点
-    - 日本节点
-    - 台湾节点
-    - 新国节点
-    - 美国节点
-    - 韩国节点
+    - iBL3ND
     flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/twitter(2).png
-    hidden: false
+    hidden: true
 - select:
     name: Ai
     policies:
-    - 日本节点
     - 台湾节点
-    - 新国节点
-    - 美国节点
-    - 韩国节点
     flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/AppleIntelligence.png
-    hidden: false
+    hidden: true
 - select:
-    name: Telegram
+    name: TG
     policies:
-    - 优选节点
+    - 美国节点
+    - 韩国节点
     - 日本节点
     - 台湾节点
     - 新国节点
-    - 美国节点
-    - 韩国节点
+    - iBL3ND
+    - 香港节点
     flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/telegram(blue1).png
-    hidden: false
+    hidden: true
 - select:
-    name: Instagram
+    name: IG
     policies:
-    - 优选节点
-    - 日本节点
-    - 台湾节点
-    - 新国节点
-    - 美国节点
-    - 韩国节点
+    - iBL3ND
     flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/instagram(2).png
-    hidden: false
+    hidden: true
 - select:
     name: YouTube
     policies:
-    - 优选节点
-    - 日本节点
-    - 台湾节点
-    - 新国节点
-    - 美国节点
-    - 韩国节点
+    - iBL3ND
     flatten: false
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/youtube(4).png
-    hidden: false
+    hidden: true
 rules:
-- domain_suffix:
-    name: 屏蔽
-    match: ut.ele.me
-    policy: REJECT
-    disabled: false
 - rule_set:
     match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/DouYin/DouYin.list
     policy: 抖音IP修改
@@ -323,7 +274,7 @@ rules:
     disabled: false
 - rule_set:
     match: https://yfamilys.com/rule/TikTok.list
-    policy: TikTok
+    policy: TK
     disabled: false
 - rule_set:
     match: https://raw.githubusercontent.com/IBL3ND/rule/refs/heads/main/Gemini.list
@@ -371,7 +322,7 @@ rules:
     disabled: false
 - rule_set:
     match: https://yfamilys.com/rule/Telegram.list
-    policy: Telegram
+    policy: TG
     disabled: false
 - rule_set:
     match: https://yfamilys.com/rule/YouTube.list
@@ -379,28 +330,49 @@ rules:
     disabled: false
 - rule_set:
     match: https://yfamilys.com/rule/Instagram.list
-    policy: Instagram
+    policy: IG
     disabled: false
 - rule_set:
     match: https://yfamilys.com/rule/ProxyMedia.list
-    policy: 优选节点
+    policy: iBL3ND
     disabled: false
 - rule_set:
     match: https://yfamilys.com/rule/Cloudflare.list
-    policy: 优选节点
+    policy: iBL3ND
     disabled: false
 - rule_set:
     match: https://raw.githubusercontent.com/GMOogway/shadowrocket-rules/master/sr_proxy_list.module
-    policy: 优选节点
+    policy: iBL3ND
     disabled: false
+- rule_set:
+    match: https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/direct.txt
+    policy: DIRECT
+    disabled: true
+- rule_set:
+    match: https://raw.githubusercontent.com/GMOogway/shadowrocket-rules/master/sr_direct_list.module
+    policy: DIRECT
+    disabled: true
 - geoip:
     match: CN
     policy: DIRECT
     no_resolve: false
     disabled: false
+- rule_set:
+    name: 域间路由
+    match: https://raw.githubusercontent.com/IBL3ND/rule/refs/heads/main/LAN.list
+    policy: DIRECT
+    disabled: true
 - default:
-    policy: 优选节点
+    policy: iBL3ND
 scriptings:
+- schedule:
+    name: TestFlight监控
+    cron: '* * * * * ?'
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/TestFlight.js
+    env:
+      TF: PpJMnnTY
+    timeout: 120
+    disabled: true
 - generic:
     name: 万年历小组件
     script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/CN_Cal.JS
@@ -413,12 +385,22 @@ scriptings:
 - generic:
     name: ip数据中心小组件
     script_url: https://raw.githubusercontent.com/shadowlynx319/Egern/main/ip-dch.js
+- generic:
+    name: 每日限免小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/App_Store_Widget.JS
+- generic:
+    name: '测试网络下载速度小组件 '
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/NetSpeed_Widget.JS
 mitm:
   ca_p12: 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
   ca_passphrase: egern
 widgets:
+- name: 测试网络下载速度
+  script_name: '测试网络下载速度小组件 '
 - name: 节日倒计时
   script_name: 节日倒计时小组件
+- name: 每日限免
+  script_name: 每日限免小组件
 - name: IP数据中心
   script_name: ip数据中心小组件
 - name: 网络诊断雷达
