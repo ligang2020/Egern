@@ -1,0 +1,22 @@
+# 微信小程序及腾讯广点通（GDT）广告拦截规则
+payload:
+  # 广点通核心域名
+  - DOMAIN-SUFFIX,gdt.qq.com
+  - DOMAIN-SUFFIX,pgdt.gtimg.cn
+  - DOMAIN-SUFFIX,mi.gdt.qq.com
+  - DOMAIN-SUFFIX,adsmind.gdtimg.com
+  - DOMAIN-SUFFIX,e.qq.com
+  - DOMAIN-SUFFIX,gdtimg.com
+  - DOMAIN-SUFFIX,l.qq.com
+  
+  # 关键字拦截
+  - DOMAIN-KEYWORD,pgdt
+  - DOMAIN-KEYWORD,gdtimg
+  - DOMAIN-KEYWORD,tencentyun-ads
+
+  # 补充一些常见的微信生态内广告和追踪域名
+  - DOMAIN-SUFFIX,trace.qq.com
+  - DOMAIN-SUFFIX,tajs.qq.com
+  - DOMAIN-SUFFIX,pingjs.qq.com
+  - DOMAIN-SUFFIX,tcss.qq.com
+  - DOMAIN-SUFFIX,wgo.qq.com
